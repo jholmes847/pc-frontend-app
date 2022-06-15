@@ -26,6 +26,23 @@ const App = () => {
       })
   }
 
+  const handleUpdate = (editPost) => {
+    axios.put('http://localhost:8000/api/post/' + editPost.id, editPost)
+    .then((response) => {
+      setPost(post.map((post) => {
+        return post.id !== response.data.id ? post : response.data
+      }))
+    })
+  }
+
+  const handleDelete = (deletedPost) => {
+    axios.delete('http://localhost:8000/api/post/' + deletedPost.id)
+    .then((response) => {
+      setPost(post.filter(post => post.id !== deletedPost.id))
+     
+    })
+  }
+
  
 
 
@@ -41,8 +58,19 @@ const App = () => {
  {post.map((person) => {
    return (
      <div className="post" key={post.id}>
-       <h4>Name: {post.name}</h4>
-       <h5>CPU: {post.cpu}</h5>
+      Name: {post.name}
+      CPU: {post.cpu}
+      GPU: {post.gpu}
+      Mobo: {post.gpu}
+      Ram: {post.ram }
+      Psu: {post.cooler}
+      Storage: {post.storage}
+      Case: {post.storage}
+      <Edit handleUpdate={handleUpdate} post={post}/>
+            <button onClick={() => {handleDelete(post)}}>
+            X
+            </button>
+
      </div>
    )
  })}
