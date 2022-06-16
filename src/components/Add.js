@@ -22,6 +22,10 @@ const Add = (props) => {
     <input type="text" name="name" value={post.name} onChange=      {handleChange} />
     <br />
     <br />
+    <label htmlFor="post">Post: </label>
+    <input type="text" name="post" value={post.post} onChange={handleChange} />
+    <br />
+    <br />
     <label htmlFor="cpu">CPU: </label>
     <input type="text" name="cpu" value={post.cpu} onChange={handleChange} />
     <br/>

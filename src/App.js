@@ -22,23 +22,22 @@ const App = () => {
     axios
       .post('http://localhost:8000/api/post', setPost)
       .then((response) => {
-        setPost([...post, response.data])
+        getPost()
       })
   }
 
   const handleUpdate = (editPost) => {
     axios.put('http://localhost:8000/api/post/' + editPost.id, editPost)
     .then((response) => {
-      setPost(post.map((post) => {
-        return post.id !== response.data.id ? post : response.data
-      }))
+     getPost()
+      
     })
   }
 
   const handleDelete = (deletedPost) => {
     axios.delete('http://localhost:8000/api/post/' + deletedPost.id)
     .then((response) => {
-      setPost(post.filter(post => post.id !== deletedPost.id))
+     getPost()
      
     })
   }
@@ -59,6 +58,7 @@ const App = () => {
    return (
      <div className="post" key={post.id}>
       Name: {post.name}
+      Post: {post.post}
       CPU: {post.cpu}
       GPU: {post.gpu}
       Mobo: {post.gpu}

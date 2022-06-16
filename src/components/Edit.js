@@ -21,6 +21,10 @@ return(
     <input type="text" name="name" value={post.name} onChange=      {handleChange} />
     <br />
     <br />
+    <label >POST: </label>
+    <input type="text" name="post" value={post.post} onChange={handleChange} />
+    <br />
+    <br />
     <label >CPU: </label>
     <input type="text" name="cpu" value={post.cpu} onChange={handleChange} />
     <br/>
