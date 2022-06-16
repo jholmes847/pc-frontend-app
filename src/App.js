@@ -13,9 +13,6 @@ const App = () => {
       .then(response => setPost(response.data),
       (err) => console.error(err)
       )
-      .then(
-        console.log(post.id)
-      )
       .catch((error) => console.error(error))
   }
 
