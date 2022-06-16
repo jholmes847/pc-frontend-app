@@ -3,82 +3,79 @@ import axios from 'axios'
 import Add from './components/Add'
 import Edit from './components/Edit'
 
-
-
 const App = () => {
-
-  // Database Toggle
-  // const apiUrl = "https://pc-backend-app.herokuapp.com"
-  const apiUrl = "http://localhost:8000"
 
   const [post, setPost] = useState([])
 
-
   const getPost = () => {
-    axios.get(`${apiUrl}/api/posts`)
-    .then(response => setPost(response.data),
-    err=> console.log(err)
-  )
-  .catch(error=> console.error(error))
+    axios
+      .get('https://pc-backend-app.herokuapp.com/api/posts?format=json')
+      .then(response => setPost(response.data),
+      (err) => console.error(err)
+      )
+      .catch((error) => console.error(error))
   }
   
-  const handleCreate = (setPost) => {
-    axios
-      .post(`${apiUrl}/api/posts`, setPost)
-      .then((response) => {
-        getPost()
-      })
-  }
+//   const handleCreate = (addPost) => {
+//     axios
+//       .post('https://pc-backend-app.herokuapp.com/api/posts', addPost)
+//       .then((response) => {
+//         getPost()
+//       })
+//   }
 
-  const handleUpdate = (editPost) => {
-    axios.put(`${apiUrl}/api/posts/` + editPost.id, editPost)
-    .then((response) => {
-     getPost()
+//   const handleUpdate = (editPost) => {
+// axios.put('https://pc-backend-app.herokuapp.com/api/posts' + editPost.id, editPost)
+//     .then((response) => {
+//      getPost()
       
-    })
-  }
+//     })
+//   }
 
-  const handleDelete = (deletedPost) => {
-    axios.delete(`${apiUrl}/api/posts/` + deletedPost.id)
-    .then((response) => {
-     getPost()
+//   const handleDelete = (deletedPost) => {
+//     axios.delete('https://pc-backend-app.herokuapp.com/api/posts' + deletedPost.id)
+//     .then((response) => {
+//      getPost()
      
-    })
-  }
+//     })
+//   }
 
  
 
 
   useEffect(() => {
-    getPost()
+    axios.get('https://pc-backend-app.herokuapp.com/api/posts').then((response) => {
+      getPost(response.data)
+    })
    }, [])
 
   return (
     <>
       <h1>App</h1>
-      <Add handleCreate={handleCreate} />
+      {/* <Add handleCreate={handleCreate} /> */}
       <div className="posts">
- {post.map((person) => {
-   return (
-     <div className="post" key={post.id}>
-      Name: {post.name}
-      Post: {post.post}
-      CPU: {post.cpu}
-      GPU: {post.gpu}
-      Mobo: {post.gpu}
-      Ram: {post.ram }
-      Psu: {post.cooler}
-      Storage: {post.storage}
-      Case: {post.storage}
-      <Edit handleUpdate={handleUpdate} post={post}/>
-            <button onClick={() => {handleDelete(post)}}>
-            X
-            </button>
+        {post.map((person) => {
+          return (
+            <div className="post" key={post.id}>
+              <p>Name: {post.name}</p>
+              <p>Post: {post.post}</p>
+              <p>CPU: {post.cpu}</p>
+              <p>Cooler: {post.cooler}</p>
+              <p>MOBO: {post.mobo}</p>
+              <p>RAM: {post.ram}</p>
+              <p>PSU: {post.psu}</p>
+              <p>GPU: {post.gpu}</p>
+              <p>Storage: {post.storage}</p>
+              <p>Case: {post.case}</p>
+              {/* <Edit handleUpdate={handleUpdate} post={post}/>
+              <button onClick={() => {handleDelete(post)}}>
+                delete
+              </button> */}
 
-     </div>
-   )
- })}
-</div>
+            </div>
+          )
+       })}
+      </div>
     </>
   )
 }
