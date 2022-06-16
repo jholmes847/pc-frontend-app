@@ -21,22 +21,24 @@ const App = () => {
     axios
       .post('https://pc-backend-app.herokuapp.com/api/posts', addPost)
       .then((response) => {
-        getPost()
+        setPost([...post, response.data])
       })
   }
 
-  const handleUpdate = (editPost) => {
+  const handleEdit = (editPost) => {
     axios.put('https://pc-backend-app.herokuapp.com/api/posts' + editPost.id, editPost)
     .then((response) => {
-     getPost()
+      setPost(post.map((post) => {
+        return post.id !== response.data.id ? post : response.data
+      }))
       
     })
   }
 
-  const handleDelete = (deletedPost) => {
-    axios.delete('https://pc-backend-app.herokuapp.com/api/posts' + deletedPost.id)
+  const handleDelete = (deletePost) => {
+    axios.delete('https://pc-backend-app.herokuapp.com/api/posts' + deletePost.id)
     .then((response) => {
-     getPost()
+      setPost(post.filter(post => post.id !== deletePost.id))
      
     })
   }
@@ -57,15 +59,23 @@ const App = () => {
    return (
      <div className="post">
       Name: {post.name}
+      <br></br>
       Post: {post.post}
+      <br></br>
       CPU: {post.cpu}
+      <br></br>
       GPU: {post.gpu}
+      <br></br>
       Mobo: {post.gpu}
+      <br></br>
       Ram: {post.ram }
+      <br></br>
       Psu: {post.cooler}
+      <br></br>
       Storage: {post.storage}
+      <br></br>
       Case: {post.storage}
-      <Edit handleUpdate={handleUpdate} post={post}/>
+      <Edit handleUpdate={handleEdit} post={post}/>
       <button onClick={() => {handleDelete(post)}}>
             delete
             </button>
