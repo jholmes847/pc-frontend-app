@@ -11,23 +11,22 @@ const App = () => {
 
 
   const getPost = () => {
-    axios.get('http://localhost:8000/api/post')
+    axios.get('https://pc-backend-app.herokuapp.com/api/posts')
     .then(response => setPost(response.data),
     err=> console.log(err)
   )
-  .catch(error=> console.error(error))
   }
   
-  const handleCreate = (setPost) => {
+  const handleCreate = (addPost) => {
     axios
-      .post('http://localhost:8000/api/post', setPost)
+      .post('https://pc-backend-app.herokuapp.com/api/posts', addPost)
       .then((response) => {
         getPost()
       })
   }
 
   const handleUpdate = (editPost) => {
-    axios.put('http://localhost:8000/api/post/' + editPost.id, editPost)
+    axios.put('https://pc-backend-app.herokuapp.com/api/posts' + editPost.id, editPost)
     .then((response) => {
      getPost()
       
@@ -35,7 +34,7 @@ const App = () => {
   }
 
   const handleDelete = (deletedPost) => {
-    axios.delete('http://localhost:8000/api/post/' + deletedPost.id)
+    axios.delete('https://pc-backend-app.herokuapp.com/api/posts' + deletedPost.id)
     .then((response) => {
      getPost()
      
@@ -56,7 +55,7 @@ const App = () => {
       <div className="posts">
  {post.map((person) => {
    return (
-     <div className="post" key={post.id}>
+     <div className="post">
       Name: {post.name}
       Post: {post.post}
       CPU: {post.cpu}
@@ -67,8 +66,8 @@ const App = () => {
       Storage: {post.storage}
       Case: {post.storage}
       <Edit handleUpdate={handleUpdate} post={post}/>
-            <button onClick={() => {handleDelete(post)}}>
-            X
+      <button onClick={() => {handleDelete(post)}}>
+            delete
             </button>
 
      </div>
