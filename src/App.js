@@ -9,39 +9,39 @@ const App = () => {
 
   const getPost = () => {
     axios
-      .get('https://pc-backend-app.herokuapp.com/api/posts?format=json')
+      .get('https://pc-backend-app.herokuapp.com/api/posts')
       .then(response => setPost(response.data),
       (err) => console.error(err)
       )
+      .then(
+        console.log(post.id)
+      )
       .catch((error) => console.error(error))
   }
-  
-//   const handleCreate = (addPost) => {
-//     axios
-//       .post('https://pc-backend-app.herokuapp.com/api/posts', addPost)
-//       .then((response) => {
-//         getPost()
-//       })
-//   }
 
-//   const handleUpdate = (editPost) => {
-// axios.put('https://pc-backend-app.herokuapp.com/api/posts' + editPost.id, editPost)
-//     .then((response) => {
-//      getPost()
+  const handleCreate = (addPost) => {
+    axios
+      .post('https://pc-backend-app.herokuapp.com/api/posts', addPost)
+      .then((response) => {
+        getPost()
+      })
+  }
+
+  const handleUpdate = (editPost) => {
+axios.put('https://pc-backend-app.herokuapp.com/api/posts' + editPost.id, editPost)
+    .then((response) => {
+     getPost()
       
-//     })
-//   }
+    })
+  }
 
-//   const handleDelete = (deletedPost) => {
-//     axios.delete('https://pc-backend-app.herokuapp.com/api/posts' + deletedPost.id)
-//     .then((response) => {
-//      getPost()
+  const handleDelete = (deletedPost) => {
+    axios.delete('https://pc-backend-app.herokuapp.com/api/posts' + deletedPost.id)
+    .then((response) => {
+     getPost()
      
-//     })
-//   }
-
- 
-
+    })
+  }
 
   useEffect(() => {
     axios.get('https://pc-backend-app.herokuapp.com/api/posts').then((response) => {
@@ -52,9 +52,9 @@ const App = () => {
   return (
     <>
       <h1>App</h1>
-      {/* <Add handleCreate={handleCreate} /> */}
+      <Add handleCreate={handleCreate} />
       <div className="posts">
-        {post.map((person) => {
+        {post.map((post) => {
           return (
             <div className="post" key={post.id}>
               <p>Name: {post.name}</p>
@@ -67,11 +67,10 @@ const App = () => {
               <p>GPU: {post.gpu}</p>
               <p>Storage: {post.storage}</p>
               <p>Case: {post.case}</p>
-              {/* <Edit handleUpdate={handleUpdate} post={post}/>
+              <Edit handleUpdate={handleUpdate} post={post}/>
               <button onClick={() => {handleDelete(post)}}>
                 delete
-              </button> */}
-
+              </button>
             </div>
           )
        })}
