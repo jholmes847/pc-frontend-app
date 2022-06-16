@@ -1,6 +1,7 @@
 import {useState} from 'react'
 
 const Edit = (props) => {
+  let emptyPost = {name: '', cpu: '', gpu: '', mobo: '', ram: '', psu: '', cooler:'', storage:'', case:''}
     const [post, setPost] = useState({...props.post})
 
 const handleChange = (event) => {
@@ -9,7 +10,7 @@ const handleChange = (event) => {
     
 const handleSubmit = (event) => {
     event.preventDefault()
-    props.handleEdit(post)
+    props.handleUpdate(post)
    
 }
 
@@ -19,7 +20,7 @@ return(
         <summary>Edit Post</summary>
         <form onSubmit={handleSubmit}>
     <label htmlFor='name' >Name: </label>
-    <input type="text" name="name" value={post.name} onChange=      {handleChange} />
+    <input type="text" name="name" value={post.name} onChange={handleChange} />
     <br />
     <br />
     <label htmlFor='post' >POST: </label>

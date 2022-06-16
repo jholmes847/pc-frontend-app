@@ -1,58 +1,62 @@
 import React, { useState, useEffect } from 'react'
 
 const Add = (props) => {
-    let emptyPost = {name: '', cpu: '', gpu: '', mobo: '', ram: '', psu: '', cooler:'', storage:'', case:''
+    let emptyPosts = {name: '', cpu: '', gpu: '', mobo: '', ram: '', psu: '', cooler:'', storage:'', case:''
   }
 
-    const [post, setPost] = useState(emptyPost)
+    const [posts, setPosts] = useState(emptyPosts)
 
     const handleChange = (event) => {
-        setPost({...post, [event.target.name]: event.target.value})
+        setPosts({...posts, [event.target.name]: event.target.value})
       }
     
       const handleSubmit = (event) => {
         event.preventDefault()
-        props.handleCreate(post)
-        setPost({name: '',post: '', cpu: '', gpu: '', mobo: '', ram: '', psu: '', cooler:'', storage:'', case:''})
+        props.handleCreate(posts)
+        setPosts({name: '',post: '', cpu: '', gpu: '', mobo: '', ram: '', psu: '', cooler:'', storage:'', case:''})
       }
     
       return (
         <>
-        <h3> Add Post</h3>
+
+        
+        <details>
+          <summary> Add Posts </summary>
         <form onSubmit={handleSubmit}>
     <label htmlFor="name">Name: </label>
-    <input type="text" name="name" value={post.name} onChange=      {handleChange} />
+    <input type="text" name="name" value={posts.name} onChange=      {handleChange} />
     <br />
     <label htmlFor="post">Post: </label>
-    <input type="text" name="post" value={post.post} onChange={handleChange} /> 
+    <input type="text" name="post" value={posts.post} onChange={handleChange} /> 
     <br />
     <label htmlFor="cpu">CPU: </label>
-    <input type="text" name="cpu" value={post.cpu} onChange={handleChange} />
+    <input type="text" name="cpu" value={posts.cpu} onChange={handleChange} />
     <br/>
     <label htmlFor="gpu">GPU: </label>
-    <input type="text" name="gpu" value={post.gpu} onChange={handleChange} />
+    <input type="text" name="gpu" value={posts.gpu} onChange={handleChange} />
     <br />
     <label htmlFor="mobo">Mobo: </label>
-    <input type="text" name="mobo" value={post.mobo} onChange={handleChange} />
+    <input type="text" name="mobo" value={posts.mobo} onChange={handleChange} />
     <br />
     <label htmlFor="ram">Ram: </label>
-    <input type="text" name="ram" value={post.ram} onChange={handleChange} />  
+    <input type="text" name="ram" value={posts.ram} onChange={handleChange} />  
     <br />
     <label htmlFor="psu">PSU: </label>
-    <input type="text" name="psu" value={post.psu} onChange={handleChange} />
+    <input type="text" name="psu" value={posts.psu} onChange={handleChange} />
     <br />
     <label htmlFor="cooler">Cooler: </label>
-    <input type="text" name="cooler" value={post.cooler} onChange={handleChange} />
+    <input type="text" name="cooler" value={posts.cooler} onChange={handleChange} />
     <br />
     <label htmlFor="storage">Storage: </label>
-    <input type="text" name="storage" value={post.storage} onChange={handleChange} />
+    <input type="text" name="storage" value={posts.storage} onChange={handleChange} />
     <br />
     <label htmlFor="case">Case: </label>
-    <input type="text" name="case" value={post.case} onChange={handleChange} />
+    <input type="text" name="case" value={posts.case} onChange={handleChange} />
     <br/>
     
     <input type="submit" />
 </form>
+</details>
         
         
         </>
