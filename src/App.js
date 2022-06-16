@@ -7,11 +7,15 @@ import Edit from './components/Edit'
 
 const App = () => {
 
+  // Database Toggle
+  // const apiUrl = "https://pc-backend-app.herokuapp.com"
+  const apiUrl = "http://localhost:8000"
+
   const [post, setPost] = useState([])
 
 
   const getPost = () => {
-    axios.get('http://localhost:8000/api/post')
+    axios.get(`${apiUrl}/api/posts`)
     .then(response => setPost(response.data),
     err=> console.log(err)
   )
@@ -20,14 +24,14 @@ const App = () => {
   
   const handleCreate = (setPost) => {
     axios
-      .post('http://localhost:8000/api/post', setPost)
+      .post(`${apiUrl}/api/posts`, setPost)
       .then((response) => {
         getPost()
       })
   }
 
   const handleUpdate = (editPost) => {
-    axios.put('http://localhost:8000/api/post/' + editPost.id, editPost)
+    axios.put(`${apiUrl}/api/posts/` + editPost.id, editPost)
     .then((response) => {
      getPost()
       
@@ -35,7 +39,7 @@ const App = () => {
   }
 
   const handleDelete = (deletedPost) => {
-    axios.delete('http://localhost:8000/api/post/' + deletedPost.id)
+    axios.delete(`${apiUrl}/api/posts/` + deletedPost.id)
     .then((response) => {
      getPost()
      
