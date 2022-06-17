@@ -5,20 +5,31 @@ const Add = (props) => {
   }
 
     const [post, setPost] = useState(emptyPost)
+    const [toggleShow, setToggleShow] = useState(false)
 
     const handleChange = (event) => {
         setPost({...post, [event.target.name]: event.target.value})
       }
-    
+
       const handleSubmit = (event) => {
         event.preventDefault()
         props.handleCreate(post)
         setPost({name: '',post: '', cpu: '', gpu: '', mobo: '', ram: '', psu: '', cooler:'', storage:'', case:''})
       }
-    
-      return (
-        <>
+
+      const showForm = (event) => {
+        toggleShow == false ?
+        setToggleShow(true)
+        :
+        setToggleShow(false)
+      }
+
+      const render = () => {
+        return (
+          <>
+        <div>
         <h3> Add Post</h3>
+        </div>
         <form onSubmit={handleSubmit}>
     <label htmlFor="name">Name: </label>
     <input type="text" name="name" value={post.name} onChange=      {handleChange} />
@@ -59,11 +70,20 @@ const Add = (props) => {
     <label htmlFor="case">Case: </label>
     <input type="text" name="case" value={post.case} onChange={handleChange} />
     <br/>
-    
+
     <input type="submit" />
-</form>
-        
-        
+    </form>
+    </>
+)
+      }
+
+
+
+
+      return (
+        <>
+        <button class="addPost" onClick={() => showForm()}> Add Post</button>
+        {toggleShow == true ? render() : null}
         </>
 
       )

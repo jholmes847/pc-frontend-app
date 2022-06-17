@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import Add from './components/Add'
 import Edit from './components/Edit'
+import './App.css'
 
 const App = () => {
 
@@ -28,7 +29,7 @@ const App = () => {
 axios.put('https://pc-backend-app.herokuapp.com/api/posts' + editPost.id, editPost)
     .then((response) => {
      getPost()
-      
+
     })
   }
 
@@ -36,7 +37,7 @@ axios.put('https://pc-backend-app.herokuapp.com/api/posts' + editPost.id, editPo
     axios.delete('https://pc-backend-app.herokuapp.com/api/posts' + deletedPost.id)
     .then((response) => {
      getPost()
-     
+
     })
   }
 
@@ -49,7 +50,9 @@ axios.put('https://pc-backend-app.herokuapp.com/api/posts' + editPost.id, editPo
   return (
     <>
       <h1>App</h1>
-      <Add handleCreate={handleCreate} />
+      <div class="add">
+        <Add handleCreate={handleCreate} />
+      </div>
       <div className="posts">
         {post.map((post) => {
           return (
