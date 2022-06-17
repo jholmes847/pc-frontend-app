@@ -76,9 +76,9 @@ const App = () => {
 	// }
 
   // Toggle Add fields - work in progress
-  // const toggleAdd = () => {
-	// 	setShowPost(!showPost)
-	// }
+  const toggleAdd = () => {
+		setShowPost(!showPost)
+	}
 
   useEffect(() => {
     axios.get(`${apiUrl}/api/posts`).then((response) => {
