@@ -1,0 +1,48 @@
+body {
+    background-color: aliceblue;
+    display: -ms-grid;
+    display: grid;
+    place-items: center;
+  }
+  
+  h1 {
+    font-size: 20px;
+  }
+  
+  img {
+    height: 600px;
+    width: 90%;
+    -o-object-fit: scale-down;
+       object-fit: scale-down;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    padding: 1%;
+  }
+  
+  .card {
+    text-align: center;
+    display: inline-block;
+    width: 45%;
+    margin: 1%;
+    background-color: #ffffff;
+    border-radius: 10px;
+    border: 2px solid #d9cb7c;
+    padding: 1%;
+    -webkit-box-shadow: 2px 2px 2px black;
+            box-shadow: 2px 2px 2px black;
+  }
+  
+  .header {
+    display: -ms-grid;
+    display: grid;
+    place-items: center;
+  }
+ 
+  
+.footer {
+    background-color: beige;
+    font-size: larger;
+    margin: auto;
+    
+}
