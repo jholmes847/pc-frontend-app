@@ -46,3 +46,8 @@ body {
     margin: auto;
     
 }
+
+.nav-bar {
+  background-color: #d9cb7c;
+  width: 500px;
+}
