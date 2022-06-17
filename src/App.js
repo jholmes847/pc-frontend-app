@@ -13,7 +13,6 @@ const App = () => {
   // Hooks
   const [post, setPost] = useState([])
   const [showPost, setShowPost] = useState(false)
-  const [updatePost, setUpdatePost] = useState(false)
 
   // Handlers
   const getPost = () => {
@@ -77,7 +76,9 @@ const App = () => {
 	// }
 
   // Toggle Add fields - work in progress
- 
+  // const toggleAdd = () => {
+	// 	setShowPost(!showPost)
+	// }
 
   useEffect(() => {
     axios.get(`${apiUrl}/api/posts`).then((response) => {
@@ -88,22 +89,16 @@ const App = () => {
    // Return
   return (
     <>
-    
-
       <div className="header">
         <h1>App</h1>
-        <button className ="btn btn-warning" onClick={()=>setUpdatePost(s=>!s)} > Add Pc</button>
-        { updatePost ?
+        {/* <button onClick={toggleAdd}>Create New Post</button> */}
         <Add handleCreate={handleCreate} />
-        : "" }
+        <br/><br/>
       </div>
       <div>
         {post.map((post) => {
           return (
-          
-
             <div className="card" key={post.id}>
-              
               <img src={`${post.img}`} />
               <p>Name: {post.name}</p>
               <p>Description: {post.description}</p>
@@ -121,7 +116,6 @@ const App = () => {
               </button>
               <br/>
             </div>
-            
           )
        })}
       </div>
