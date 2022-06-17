@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react'
 
 const Add = (props) => {
-    let emptyPost = {name: '', cpu: '', gpu: '', mobo: '', ram: '', psu: '', cooler:'', storage:'', case:''}
+    let emptyPost = {name: '', cpu: '', gpu: '', mobo: '', ram: '', psu: '', cooler:'', storage:'', case:''
+  }
+
     const [post, setPost] = useState(emptyPost)
 
     const handleChange = (event) => {
@@ -11,7 +13,7 @@ const Add = (props) => {
       const handleSubmit = (event) => {
         event.preventDefault()
         props.handleCreate(post)
-        setPost({name: '', cpu: '', gpu: '', mobo: '', ram: '', psu: '', cooler:'', storage:'', case:''})
+        setPost({name: '',post: '', cpu: '', gpu: '', mobo: '', ram: '', psu: '', cooler:'', storage:'', case:''})
       }
     
       return (
@@ -20,6 +22,10 @@ const Add = (props) => {
         <form onSubmit={handleSubmit}>
     <label htmlFor="name">Name: </label>
     <input type="text" name="name" value={post.name} onChange=      {handleChange} />
+    <br />
+    <br />
+    <label htmlFor="post">Post: </label>
+    <input type="text" name="post" value={post.post} onChange={handleChange} />
     <br />
     <br />
     <label htmlFor="cpu">CPU: </label>
