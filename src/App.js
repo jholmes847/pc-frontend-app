@@ -67,20 +67,10 @@ const App = () => {
   })
   const results = fuse.search(query)
   const postResults = query ? results.map(result => result.item) : post
-  
   function postSearch({ currentTarget = {} }) {
     const { value } = currentTarget;
     setQuery(value);
   }
-
-
-  // Toggle fields - work in progress
-  const toggleAdd = () => {
-		setShowPost(!showPost)
-	}
-  const toggleSearch = () => {
-		setShowSearch(!showSearch)
-	}
 
   useEffect(() => {
     axios.get(`${apiUrl}/api/posts`).then((response) => {
@@ -97,8 +87,10 @@ const App = () => {
         <Add handleCreate={handleCreate} />
         <br/><br/>
         {/* Search and Filter component */}
-        <button className="button-primary" onClick={toggleSearch}>Search Builds</button>
+        <button className="button-primary" onClick={()=>setShowSearch(s=>!s)}>Search Builds</button>
+        {showSearch ?
         <input type = "text" value={query} onChange={postSearch} />
+        : null }
       </div>
 
       <div>
@@ -132,18 +124,3 @@ const App = () => {
 }
 
 export default App
-
-
-
-// {/* {toggleSearch ?
-//           <input className="search" placeholder="Search" onChange={(event) => {setQuery(event.target.value)}}/>
-//         : null} */}
-//         {/* {post.filter((posts) => {
-//           if (query === '') {
-//             return posts
-//           } else if (posts.name.toLowerCase().includes(query.toLowerCase())) {
-//             return posts
-//           } else if (posts.cpu.toLowerCase().includes(query.toLowerCase())){
-//             return posts
-//           }
-//         })} */}
