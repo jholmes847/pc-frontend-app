@@ -4,6 +4,7 @@ import Add from './components/Add'
 import Edit from './components/Edit'
 import './style/style.css'
 import Fuse from 'fuse.js'
+// import posts from 'https://pc-backend-app.herokuapp.com/api/posts?format=json'
 
 const App = () => {
 
@@ -15,7 +16,7 @@ const App = () => {
   const [post, setPost] = useState([])
   const [showPost, setShowPost] = useState(false)
   const [showSearch, setShowSearch] = useState(false)
-  const [query, setQuery] = useState("")
+  const [query, setQuery] = useState('')
 
   // Handlers
   const getPost = () => {
@@ -51,7 +52,27 @@ const App = () => {
   }
 
   // Search
+  const fuse = new Fuse (post, {
+    keys: [
+      'name',
+      'cpu',
+      'cooler',
+      'mobo',
+      'ram',
+      'psu',
+      'gpu',
+      'storage',
+      'case'
+    ]
+  })
+  const results = fuse.search(query)
+  const postResults = query ? results.map(result => result.item) : post
   
+  function postSearch({ currentTarget = {} }) {
+    const { value } = currentTarget;
+    setQuery(value);
+  }
+
 
   // Toggle fields - work in progress
   const toggleAdd = () => {
@@ -77,22 +98,11 @@ const App = () => {
         <br/><br/>
         {/* Search and Filter component */}
         <button className="button-primary" onClick={toggleSearch}>Search Builds</button>
-        {toggleSearch ?
-          <input className="search" placeholder="Search" onChange={(event) => {setQuery(event.target.value)}}/>
-        : null}
-        {post.filter((posts) => {
-          if (query === '') {
-            return posts
-          } else if (posts.name.toLowerCase().includes(query.toLowerCase())) {
-            return posts
-          } else if (posts.cpu.toLowerCase().includes(query.toLowerCase())){
-            return posts
-          }
-        })}
+        <input type = "text" value={query} onChange={postSearch} />
       </div>
 
       <div>
-        {post.map((post) => {
+        {postResults.map((post) => {
           return (
             <div className="card" key={post.id}>
               <div className="zoom-cont">
@@ -122,3 +132,18 @@ const App = () => {
 }
 
 export default App
+
+
+
+// {/* {toggleSearch ?
+//           <input className="search" placeholder="Search" onChange={(event) => {setQuery(event.target.value)}}/>
+//         : null} */}
+//         {/* {post.filter((posts) => {
+//           if (query === '') {
+//             return posts
+//           } else if (posts.name.toLowerCase().includes(query.toLowerCase())) {
+//             return posts
+//           } else if (posts.cpu.toLowerCase().includes(query.toLowerCase())){
+//             return posts
+//           }
+//         })} */}
