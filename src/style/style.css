@@ -9,28 +9,43 @@ h1 {
   font-size: 20px;
 }
 
-img {
-  height: 600px;
-  width: 90%;
-  -o-object-fit: scale-down;
-     object-fit: scale-down;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  padding: 1%;
-}
-
 .card {
   text-align: center;
   display: inline-block;
   width: 45%;
   margin: 1%;
   background-color: #ffffff;
-  border-radius: 10px;
-  border: 2px solid #d9cb7c;
+  border-radius: 7px;
+  border: 5px solid #eddd86;
   padding: 1%;
   -webkit-box-shadow: 2px 2px 2px black;
           box-shadow: 2px 2px 2px black;
+}
+
+.card .zoom-cont {
+  margin: auto;
+  overflow: hidden;
+}
+
+.card img {
+  height: 450px;
+  width: 90%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding-top: 5%;
+  -webkit-transition: -webkit-transform .4s;
+  transition: -webkit-transform .4s;
+  transition: transform .4s;
+  transition: transform .4s, -webkit-transform .4s;
+  margin: 0 auto;
+}
+
+.card img:hover {
+  -webkit-transform: scale(1.5);
+          transform: scale(1.5);
 }
 
 .header {

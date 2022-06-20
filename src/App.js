@@ -3,6 +3,7 @@ import axios from 'axios'
 import Add from './components/Add'
 import Edit from './components/Edit'
 import './style/style.css'
+import Fuse from 'fuse.js'
 
 const App = () => {
 
@@ -13,6 +14,8 @@ const App = () => {
   // Hooks
   const [post, setPost] = useState([])
   const [showPost, setShowPost] = useState(false)
+  const [showSearch, setShowSearch] = useState(false)
+  const [query, setQuery] = useState("")
 
   // Handlers
   const getPost = () => {
@@ -47,37 +50,15 @@ const App = () => {
     })
   }
 
-  // Toggle Edit fields - work in progress
-  // const toggleEdit = (event, post) => {
-	// 	event.preventDefault()
-	// 	axios
-	// 		.put(
-	// 			`${apiUrl}/${post.id}`, {
-	// 				name: post.name,
-	// 				description: post.description,
-	// 				cpu: post.cpu,
-	// 				cooler: post.cooler,
-	// 				mobo: post.mobo,
-	// 				ram: post.ram,
-	// 				psu: post.psu,
-	// 				gpu: post.gpu,
-	// 				storage: post.storage,
-	// 				case: post.case,
-	// 				img: post.img,
-	// 			}
-	// 		)
-	// 		.then(() => {
-	// 			axios
-	// 				.get(`${apiUrl}`)
-	// 				.then((response) => {
-	// 					post(response.data)
-	// 				})
-	// 		})
-	// }
+  // Search
+  
 
-  // Toggle Add fields - work in progress
+  // Toggle fields - work in progress
   const toggleAdd = () => {
 		setShowPost(!showPost)
+	}
+  const toggleSearch = () => {
+		setShowSearch(!showSearch)
 	}
 
   useEffect(() => {
@@ -94,12 +75,29 @@ const App = () => {
         <button onClick={toggleAdd}>Create New Post</button>
         <Add handleCreate={handleCreate} />
         <br/><br/>
+        {/* Search and Filter component */}
+        <button className="button-primary" onClick={toggleSearch}>Search Builds</button>
+        {toggleSearch ?
+          <input className="search" placeholder="Search" onChange={(event) => {setQuery(event.target.value)}}/>
+        : null}
+        {post.filter((posts) => {
+          if (query === '') {
+            return posts
+          } else if (posts.name.toLowerCase().includes(query.toLowerCase())) {
+            return posts
+          } else if (posts.cpu.toLowerCase().includes(query.toLowerCase())){
+            return posts
+          }
+        })}
       </div>
+
       <div>
         {post.map((post) => {
           return (
             <div className="card" key={post.id}>
-              <img src={`${post.img}`} />
+              <div className="zoom-cont">
+                <img src={`${post.img}`} />
+              </div>
               <p>Name: {post.name}</p>
               <p>Description: {post.description}</p>
               <p>CPU: {post.cpu}</p>
