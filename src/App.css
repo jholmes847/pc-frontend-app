@@ -38,22 +38,25 @@
 }
 
 @media (prefers-color-scheme: light, no-preference) {
-  body {
+  .Light {
     background-color: white;
   }
 }
 
 @media (prefers-color-scheme: dark) {
-  body {
+  .Dark {
     background-color: grey;
   }
+}
+
+body{
+  background-color: red;
 }
 
 .posts {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  background-color: ghostwhite;
 }
 .post {
   width: 95%;
