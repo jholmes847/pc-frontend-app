@@ -2,129 +2,143 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import Add from './components/Add'
 import Edit from './components/Edit'
-import Show from './components/Show'
-import './App.css'
+import './style/style.css'
 
 const App = () => {
 
+  // Database API URL Switch Heroku/Local
+  const apiUrl = 'https://pc-backend-app.herokuapp.com'
+  // const apiUrl = 'localhost:8000'
+
+  // Hooks
   const [post, setPost] = useState([])
-  const [darkMode, setDarkMode] = useState(false)
-  const [darkModeButton, setDarkModeButton] = useState("Light")
+  const [showPost, setShowPost] = useState(false)
   const [toggleShow, setToggleShow] = useState("")
 
+
+  // Handlers
   const getPost = () => {
     axios
-      .get('https://pc-backend-app.herokuapp.com/api/posts')
+      .get(`${apiUrl}/api/posts`)
       .then(response => setPost(response.data),
       (err) => console.error(err)
       )
       .catch((error) => console.error(error))
   }
-
   const handleCreate = (addPost) => {
     axios
-      .post('https://pc-backend-app.herokuapp.com/api/posts', addPost)
+      .post(`${apiUrl}/api/posts`, addPost)
       .then((response) => {
         getPost()
       })
   }
-
   const handleUpdate = (editPost) => {
-axios.put('https://pc-backend-app.herokuapp.com/api/posts' + editPost.id, editPost)
-    .then((response) => {
-     getPost()
-
-    })
+    axios.put(`${apiUrl}/api/posts/` + editPost.id, editPost)
+      .then((response) => {
+        setPost(post.map((post) => {
+          return post.id !== response.data.id ? post : response.data
+        }))
+      })
   }
-
   const handleDelete = (deletedPost) => {
-    axios.delete('https://pc-backend-app.herokuapp.com/api/posts' + deletedPost.id)
+    axios.delete(`${apiUrl}/api/posts/` + deletedPost.id)
     .then((response) => {
-     getPost()
-
+      setPost(
+        post.filter(posts => posts.id !== deletedPost.id)
+      )
     })
   }
+
+  // Toggle Edit fields - work in progress
+  // const toggleEdit = (event, post) => {
+	// 	event.preventDefault()
+	// 	axios
+	// 		.put(
+	// 			`${apiUrl}/${post.id}`, {
+	// 				name: post.name,
+	// 				description: post.description,
+	// 				cpu: post.cpu,
+	// 				cooler: post.cooler,
+	// 				mobo: post.mobo,
+	// 				ram: post.ram,
+	// 				psu: post.psu,
+	// 				gpu: post.gpu,
+	// 				storage: post.storage,
+	// 				case: post.case,
+	// 				img: post.img,
+	// 			}
+	// 		)
+	// 		.then(() => {
+	// 			axios
+	// 				.get(`${apiUrl}`)
+	// 				.then((response) => {
+	// 					post(response.data)
+	// 				})
+	// 		})
+	// }
+
+  // Toggle Add fields - work in progress
+  // const toggleAdd = () => {
+	// 	setShowPost(!showPost)
+	// }
 
   useEffect(() => {
-    axios.get('https://pc-backend-app.herokuapp.com/api/posts').then((response) => {
+    axios.get(`${apiUrl}/api/posts`).then((response) => {
       getPost(response.data)
     })
    }, [])
 
-   const darkLight = (event) => {
-        if (darkMode == false) {
-            setDarkModeButton("Dark")
-            setDarkMode(true)
-      }
-      else {
-        setDarkModeButton("Light")
-        setDarkMode(false)
-      }
+
+   const handleShowPost = (post) => {
+     showPost != `${post.id}`
+     ? setShowPost(`${post.id}`)
+     : setShowPost(``)
    }
 
-   const cardCover = (post) => {
-     return(
-       <>
-
-        <p>Name: {post.name}</p>
-        <p>Post: {post.post}</p>
-        <p>CPU: {post.cpu}</p>
-        <p>Cooler: {post.cooler}</p>
-        <p>MOBO: {post.mobo}</p>
-        <p>RAM: {post.ram}</p>
-        <p>PSU: {post.psu}</p>
-        <p>GPU: {post.gpu}</p>
-        <p>Storage: {post.storage}</p>
-        <p>Case: {post.case}</p>
-        <button onClick={() => {handleToggleShow(post)}}> show </button>
-
-       </>
-     )
-   }
-
-   const cardShow = (post) => {
-     return(
-       <>
-
-       <Show post={post}/>
-       <button onClick={() => {handleToggleShow(post)}}> show </button>
-
-         <Edit handleUpdate={handleUpdate} post={post}/>
-         <button onClick={() => {handleDelete(post)}}>
-           delete
-         </button>
-
-       </>
-     )
-   }
-
-   const handleToggleShow = (post) => {
-     toggleShow != `${post.id}`
-     ?  setToggleShow(`${post.id}`)
-     :  setToggleShow(``)
-   }
-
-
+   // Return
   return (
-    <div style={{backgroundColor: darkMode ? 'grey' : 'white'}}>
-      <h1>App</h1>
-      <div class="add">
+    <>
+      <div className="header">
+        <h1>PC REVIEW</h1>
+        {/* <button onClick={toggleAdd}>Create New Post</button> */}
         <Add handleCreate={handleCreate} />
-        <button onClick={darkLight}>{darkModeButton}</button>
+        <br/><br/>
       </div>
-      <div className="posts">
+      <div>
         {post.map((post) => {
           return (
-            <div className="post" key={post.id}>
-            {toggleShow != `${post.id}`
-              ? cardCover(post)
-              : cardShow(post)
-            }
+            <div className="card" key={post.id}>
+               <img src={`${post.img}`} onClick={()=>handleShowPost(post)}/>
+
+              <p>Name: {post.name}</p>
+              <p>Description: {post.description}</p>
+
+              { showPost == `${post.id}` ?
+              <form >
+              <p>CPU: {post.cpu}</p>
+              <p>Cooler: {post.cooler}</p>
+              <p>MOBO: {post.mobo}</p>
+              <p>RAM: {post.ram}</p>
+              <p>PSU: {post.psu}</p>
+              <p>GPU: {post.gpu}</p>
+              <p>Storage: {post.storage}</p>
+              <p>Case: {post.case}</p>
+              <Edit handleUpdate={handleUpdate} post={post}/>
+              <button onClick={() => {handleDelete(post)}}>
+                delete
+              </button>
+              <br/>
+              </form>  : "" }
             </div>
+
           )
        })}
       </div>
-    </div>
+      <footer className='footer'>
+            <span>℗ 2022</span>
+            <span>Designed By Jeff Holmes + Alex Byun + Erik McQuarrie</span>
+            </footer>
+    </>
   )
 }
 
