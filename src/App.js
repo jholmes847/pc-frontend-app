@@ -14,6 +14,7 @@ const App = () => {
   const [post, setPost] = useState([])
   const [showPost, setShowPost] = useState(false)
 
+
   // Handlers
   const getPost = () => {
     axios
@@ -90,7 +91,7 @@ const App = () => {
   return (
     <>
       <div className="header">
-        <h1>App</h1>
+        <h1>PC REVIEW</h1>
         {/* <button onClick={toggleAdd}>Create New Post</button> */}
         <Add handleCreate={handleCreate} />
         <br/><br/>
@@ -99,7 +100,10 @@ const App = () => {
         {post.map((post) => {
           return (
             <div className="card" key={post.id}>
-              <img src={`${post.img}`} />
+               <img src={`${post.img}`} />
+              <button className ="btn btn-warning" onClick={()=>setShowPost(s=>!s)} > Show Description</button>
+              { showPost ?
+              <form >
               <p>Name: {post.name}</p>
               <p>Description: {post.description}</p>
               <p>CPU: {post.cpu}</p>
@@ -115,7 +119,9 @@ const App = () => {
                 delete
               </button>
               <br/>
+              </form>  : "" }
             </div>
+            
           )
        })}
       </div>

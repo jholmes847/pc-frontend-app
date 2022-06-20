@@ -23,7 +23,7 @@ const Add = (props) => {
   return (
     <>
     
-    <h3> Add Post</h3>
+  
     <button className ="btn btn-warning" onClick={()=>setUpdatePost(s=>!s)} > Add post</button>
    { updatePost ?
       <form onSubmit= {handleSubmit}>
