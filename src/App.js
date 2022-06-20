@@ -101,11 +101,12 @@ const App = () => {
           return (
             <div className="card" key={post.id}>
                <img src={`${post.img}`} />
+             
+              <p>Name: {post.name}</p>
+              <p>Description: {post.description}</p>
               <button className ="btn btn-warning" onClick={()=>setShowPost(s=>!s)} > Show Description</button>
               { showPost ?
               <form >
-              <p>Name: {post.name}</p>
-              <p>Description: {post.description}</p>
               <p>CPU: {post.cpu}</p>
               <p>Cooler: {post.cooler}</p>
               <p>MOBO: {post.mobo}</p>
