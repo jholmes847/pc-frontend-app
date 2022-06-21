@@ -15,7 +15,7 @@ const Add = (props) => {
     props.handleCreate(post)
     setPost({name: '', description: '', cpu:'', cooler:'',  mobo: '', ram: '', psu: '', gpu: '', storage:'', case:'', img:'',})
   }
-    
+
   // Return - /components/Add.js
   return (
     <>
@@ -58,8 +58,8 @@ const Add = (props) => {
         <input type="submit" />
       </form>
     {/* : null} */}
-    
-    
+
+
     </>
 
   )

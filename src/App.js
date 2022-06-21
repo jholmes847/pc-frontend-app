@@ -4,6 +4,7 @@ import Add from './components/Add'
 import Edit from './components/Edit'
 import './style/style.css'
 import Fuse from 'fuse.js'
+import Show from './components/Show'
 import { FaStar } from 'react-icons/fa'
 
 const App = () => {
@@ -17,6 +18,7 @@ const App = () => {
   const [showPost, setShowPost] = useState(false)
   const [showSearch, setShowSearch] = useState(false)
   const [query, setQuery] = useState('')
+  const [showToggle, setShowToggle] = useState("")
   const [rating, setRating] = useState(null)
   const [ratingHover, setRatingHover] = useState()
 
@@ -52,6 +54,11 @@ const App = () => {
       )
     })
   }
+  const handleShowToggle = (post) => {
+     showToggle != `${post.id}`
+     ? setShowToggle(`${post.id}`)
+     : setShowToggle("")
+  }
 
   // Search Component
   const fuse = new Fuse (post, {
@@ -84,9 +91,12 @@ const App = () => {
    // Return
   return (
     <>
-      <div className="header">
+    <div className="header">
         <h1>App</h1>
+        <button onClick={toggleAdd}>Create New Post</button>
+        {showPost == true ?
         <Add handleCreate={handleCreate} />
+        : null}
         <br/><br/>
         {/* Search and Filter component */}
         <button className="button-primary" onClick={()=>setShowSearch(s=>!s)}>Search Builds</button>
@@ -95,15 +105,41 @@ const App = () => {
         : null }
       </div>
 
-      <div>
+           <div>
         {postResults.map((post) => {
-          return (
-            <div className="card" key={post.id}>
+          return(
+            showToggle != `${post.id}`
+            ?
+            <div className="card" key={post.id} onClick={() => {handleShowToggle(post)}}>
               <div className="zoom-cont">
                 <img src={`${post.img}`} />
               </div>
+              <h1>{post.name}</h1>
+            </div>
+            :
+            <div className="show" key={post.id}>
+              <div onClick={() => {handleShowToggle(post)}}>
+                <Show post={post} />
+              </div>
+              <Edit handleUpdate={handleUpdate} handleDelete={handleDelete} post={post}/>
+            </div>
 
-              {/* Star Rating Component */}
+          )
+       })}
+      </div>
+      <footer className='footer'>
+            <span>℗ 2022</span>
+            <span>Designed By Jeff Holmes + Alex Byun + Erik McQuarrie</span>
+            </footer>
+    </>
+  )
+}
+
+export default App
+
+
+
+
               <div className="rating">
                 {[ ...Array(5)].map((stars, i) => {
                   const starRating = i + 1
@@ -126,28 +162,3 @@ const App = () => {
                   )
                 })}
               </div>
-
-              <p>Name: {post.name}</p>
-              <p>Description: {post.description}</p>
-              <p>CPU: {post.cpu}</p>
-              <p>Cooler: {post.cooler}</p>
-              <p>MOBO: {post.mobo}</p>
-              <p>RAM: {post.ram}</p>
-              <p>PSU: {post.psu}</p>
-              <p>GPU: {post.gpu}</p>
-              <p>Storage: {post.storage}</p>
-              <p>Case: {post.case}</p>
-              <Edit handleUpdate={handleUpdate} post={post}/>
-              <button onClick={() => {handleDelete(post)}}>
-                delete
-              </button>
-              <br/>
-            </div>
-          )
-       })}
-      </div>
-    </>
-  )
-}
-
-export default App

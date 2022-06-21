@@ -2,16 +2,34 @@ import {useState} from 'react'
 
 const Edit = (props) => {
     const [post, setPost] = useState({...props.post})
+    const [toggle, setToggle] = useState(false)
 
 const handleChange = (event) => {
      setPost({...post, [event.target.name]: event.target.value})
     }
-    
+
 const handleSubmit = (event) => {
     event.preventDefault()
     props.handleUpdate(post)
-   
 }
+
+const handleDeleteSubmit = (event) => {
+    event.preventDefault()
+    props.handleDelete(post)
+}
+
+const handleToggle = (event) => {
+    toggle === false ?
+      setToggle(true)
+    :
+      setToggle(false)
+}
+
+const submitFunc = () => {
+  handleSubmit()
+  handleToggle()
+}
+
 
 return(
     <>
@@ -63,7 +81,16 @@ return(
           <br/><br/>
 
           <input type='submit'/>
+          <br/><br/>
         </form>
+
+        <details>
+        <summary>Delete Post</summary>
+          <button onClick={handleDeleteSubmit}>
+            Delete
+          </button>
+        </details>
+
       </details>
     </>
   )
