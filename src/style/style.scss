@@ -21,7 +21,6 @@ h1 {
     .zoom-cont {
         margin: auto;
         overflow: hidden;
-    }
         img {
             height: 450px;
             width: 90%;
@@ -34,6 +33,14 @@ h1 {
                 transform: scale(1.5);
             }
         }
+    }
+    [type="radio"] {
+        display: none;
+    }
+    .star {
+        cursor: pointer;
+        transition: color 200ms;
+    }
 }
 
 .header {

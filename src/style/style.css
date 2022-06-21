@@ -26,7 +26,7 @@ h1 {
   overflow: hidden;
 }
 
-.card img {
+.card .zoom-cont img {
   height: 450px;
   width: 90%;
   -o-object-fit: cover;
@@ -42,9 +42,19 @@ h1 {
   margin: 0 auto;
 }
 
-.card img:hover {
+.card .zoom-cont img:hover {
   -webkit-transform: scale(1.5);
           transform: scale(1.5);
+}
+
+.card [type="radio"] {
+  display: none;
+}
+
+.card .star {
+  cursor: pointer;
+  -webkit-transition: color 200ms;
+  transition: color 200ms;
 }
 
 .header {

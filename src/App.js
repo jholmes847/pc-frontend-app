@@ -5,7 +5,7 @@ import Edit from './components/Edit'
 import './style/style.css'
 import Fuse from 'fuse.js'
 import Show from './components/Show'
-// import posts from 'https://pc-backend-app.herokuapp.com/api/posts?format=json'
+import { FaStar } from 'react-icons/fa'
 
 const App = () => {
 
@@ -19,6 +19,8 @@ const App = () => {
   const [showSearch, setShowSearch] = useState(false)
   const [query, setQuery] = useState('')
   const [showToggle, setShowToggle] = useState("")
+  const [rating, setRating] = useState(null)
+  const [ratingHover, setRatingHover] = useState()
 
   // Handlers
   const getPost = () => {
@@ -52,8 +54,13 @@ const App = () => {
       )
     })
   }
+  const handleShowToggle = (post) => {
+     showToggle != `${post.id}`
+     ? setShowToggle(`${post.id}`)
+     : setShowToggle("")
+  }
 
-  // Search
+  // Search Component
   const fuse = new Fuse (post, {
     keys: [
       'name',
@@ -69,37 +76,17 @@ const App = () => {
   })
   const results = fuse.search(query)
   const postResults = query ? results.map(result => result.item) : post
-
   function postSearch({ currentTarget = {} }) {
     const { value } = currentTarget;
     setQuery(value);
   }
 
-
-  // Toggle fields - work in progress
-  const toggleAdd = () => {
-		setShowPost(!showPost)
-	}
-  const toggleSearch = () => {
-		setShowSearch(!showSearch)
-	}
-
+  //Effect Hook
   useEffect(() => {
     axios.get(`${apiUrl}/api/posts`).then((response) => {
       getPost(response.data)
     })
    }, [])
-
-
-   const handleShowToggle = (post) => {
-     showToggle != `${post.id}`
-     ? setShowToggle(`${post.id}`)
-     : setShowToggle("")
-
-   }
-
-
-
 
    // Return
   return (
@@ -112,11 +99,13 @@ const App = () => {
         : null}
         <br/><br/>
         {/* Search and Filter component */}
-        <button className="button-primary" onClick={toggleSearch}>Search Builds</button>
+        <button className="button-primary" onClick={()=>setShowSearch(s=>!s)}>Search Builds</button>
+        {showSearch ?
         <input type = "text" value={query} onChange={postSearch} />
+        : null }
       </div>
 
-      <div>
+           <div>
         {postResults.map((post) => {
           return(
             showToggle != `${post.id}`
@@ -150,15 +139,26 @@ export default App
 
 
 
-// {/* {toggleSearch ?
-//           <input className="search" placeholder="Search" onChange={(event) => {setQuery(event.target.value)}}/>
-//         : null} */}
-//         {/* {post.filter((posts) => {
-//           if (query === '') {
-//             return posts
-//           } else if (posts.name.toLowerCase().includes(query.toLowerCase())) {
-//             return posts
-//           } else if (posts.cpu.toLowerCase().includes(query.toLowerCase())){
-//             return posts
-//           }
-//         })} */}
+
+              <div className="rating">
+                {[ ...Array(5)].map((stars, i) => {
+                  const starRating = i + 1
+                  return (
+                    <label>
+                      <input
+                        type="radio"
+                        name="rating"
+                        value={starRating}
+                        onClick={() => setRating(starRating)}
+                        
+                      />
+                      <FaStar 
+                        className="star"
+                        color={starRating <= (ratingHover || rating) ? "#f4e845" : "#c9c9c9"}
+                        onMouseEnter={() => setRatingHover(starRating)}
+                        onMouseLeave={() => setRatingHover(null)}
+                      />
+                    </label>
+                  )
+                })}
+              </div>
