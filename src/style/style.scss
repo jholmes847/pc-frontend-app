@@ -8,24 +8,32 @@ h1 {
     font-size: 20px;
 }
 
-img {
-    height: 600px;
-    width: 90%;
-    object-fit: scale-down;
-    align-items: center;
-    padding: 1%;
-}
-
 .card {
     text-align: center;
     display: inline-block;
     width: 45%;
     margin: 1%;
     background-color: #ffffff;
-    border-radius: 10px;
-    border: 2px solid #d9cb7c;
+    border-radius: 7px;
+    border: 5px solid #eddd86;
     padding: 1%;
     box-shadow: 2px 2px 2px rgb(0, 0, 0);
+    .zoom-cont {
+        margin: auto;
+        overflow: hidden;
+    }
+        img {
+            height: 450px;
+            width: 90%;
+            object-fit: cover;
+            align-items: center;
+            padding-top: 5%;
+            transition: transform .4s;
+            margin: 0 auto;
+            &:hover {
+                transform: scale(1.5);
+            }
+        }
 }
 
 .header {

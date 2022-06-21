@@ -5,9 +5,6 @@ const Add = (props) => {
 
   // Hooks - /components/Add.js
   const [post, setPost] = useState(emptyPost)
-  const [updatePost, setUpdatePost] = useState(false)
-
-
 
   // Handlers - /components/Add.js
   const handleChange = (event) => {
@@ -22,11 +19,9 @@ const Add = (props) => {
   // Return - /components/Add.js
   return (
     <>
-
-
-    <button className ="btn btn-warning" onClick={()=>setUpdatePost(s=>!s)} > Add post</button>
-   { updatePost ?
-      <form onSubmit= {handleSubmit}>
+    <h3> Add Post</h3>
+    {/* {toggleAdd ? */}
+      <form onSubmit={handleSubmit}>
         <label htmlFor="name">Name: </label>
           <input type="text" name="name" value={post.name} onChange={handleChange} />
         <br/><br/>
@@ -61,8 +56,8 @@ const Add = (props) => {
           <input type="text" name="img" value={post.img} onChange={handleChange} />
         <br/><br/>
         <input type="submit" />
-      </form>  : "" }
-
+      </form>
+    {/* : null} */}
 
 
     </>

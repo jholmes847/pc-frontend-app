@@ -1,36 +1,11 @@
 body {
-  background: linear-gradient(-45deg, black, grey, grey, black);
-  background-size: 400% 400%;
-  animation: gradient 15s ease infinite;
+  background-color: aliceblue;
   display: -ms-grid;
   display: grid;
-  place-items: center;
-}
-@keyframes gradient {
-  0% {
-      background-position: 0% 50%;
-  }
-  50% {
-      background-position: 100% 50%;
-  }
-  100% {
-      background-position: 0% 50%;
-  }
 }
 
 h1 {
   font-size: 20px;
-}
-
-img {
-  height: 200px;
-  width: 90%;
-  -o-object-fit: scale-down;
-     object-fit: scale-down;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  padding: 1%;
 }
 
 .card {
@@ -39,11 +14,37 @@ img {
   width: 45%;
   margin: 1%;
   background-color: #ffffff;
-  border-radius: 10px;
-  border: 2px solid #d9cb7c;
+  border-radius: 7px;
+  border: 5px solid #eddd86;
   padding: 1%;
   -webkit-box-shadow: 2px 2px 2px black;
           box-shadow: 2px 2px 2px black;
+}
+
+.card .zoom-cont {
+  margin: auto;
+  overflow: hidden;
+}
+
+.card img {
+  height: 450px;
+  width: 90%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding-top: 5%;
+  -webkit-transition: -webkit-transform .4s;
+  transition: -webkit-transform .4s;
+  transition: transform .4s;
+  transition: transform .4s, -webkit-transform .4s;
+  margin: 0 auto;
+}
+
+.card img:hover {
+  -webkit-transform: scale(1.5);
+          transform: scale(1.5);
 }
 
 .header {
@@ -51,12 +52,118 @@ img {
   display: grid;
   place-items: center;
 }
-/*# sourceMappingURL=style.css.map */
-.footer {
-  background-color: beige;
-  font-size: larger;
-  margin: auto;
 
-  margin-top: 80%;
+.show{
+  text-align: center;
+  display: flex;
+  height: auto;
+  width: 95%;
+  margin: 1%;
+  background-color: #ffffff;
+  border-radius: 7px;
+  border: 5px solid #eddd86;
+  padding: 1%;
+  box-shadow: 2px 2px 2px rgb(0, 0, 0);
+  flex-direction: column;
+}
+
+.showImg{
+  justify-content: flex-end;
+  display: flex;
+  height: 50%;
+  width: 50%;;
+  margin-right: 1%;
+  margin-bottom: auto;
+  margin-top: auto;
+  padding-bottom: 1%;
 
 }
+
+.showImg img {
+  height: 100%;
+  width: 90%;
+  -o-object-fit: cover;
+     object-fit: cover;
+     -webkit-box-align: center;
+         -ms-flex-align: center;
+             align-items: center;
+  margin-top: 5%;
+  -webkit-transition: -webkit-transform .4s;
+  transition: -webkit-transform .4s;
+  transition: transform .4s;
+  transition: transform .4s, -webkit-transform .4s;
+  margin: 0 auto;
+  border-radius: 20px;
+}
+
+.showList li{
+  width: 200px;;
+  list-style: none;
+  display: flex;
+  text-align: center;
+}
+
+.showDescription{
+  width: 40%;
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 5%;
+  padding-left: 3%;
+  border-bottom-style: double;
+  border-top-style: double;
+  margin-left: 3%;
+  margin-bottom: 5%;
+}
+
+.showName{
+  display: flex;
+  justify-content: center;
+}
+
+.showContainer{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+h1{
+  font-size: 35px;
+  font-weight: bolder;
+  font-family: fantasy;
+}
+
+h2{
+  font-size: 25px;
+  font-weight: bold;
+  font-family: monospace;
+}
+
+ul{
+  padding-left: 15%;
+  justify-content: center;
+  border-right-style: dashed;
+  border-left-style: dashed;
+}
+
+.item{
+  font-size: 20px;
+  font-weight: bolder;
+  text-decoration-line: underline;
+}
+
+.itemName{
+  font-style: italic;
+  font-size: 15px;
+  color: red;
+}
+
+.p{
+  font-size: 21px;
+  font-family: serif;
+}
+
+.footer{
+  text-align: center;
+}
+/*# sourceMappingURL=style.css.map */
