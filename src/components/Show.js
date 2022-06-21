@@ -59,8 +59,9 @@ const Show = (props) => {
       </div>
 
       <div class="showDescription">
-        <p class="p">
+        
           <h2>Description</h2>
+          <p class="p">
           <br/>
           {post.description}
         </p>
