@@ -4,7 +4,7 @@ import Add from './components/Add'
 import Edit from './components/Edit'
 import './style/style.css'
 import Fuse from 'fuse.js'
-// import posts from 'https://pc-backend-app.herokuapp.com/api/posts?format=json'
+import { FaStar } from 'react-icons/fa'
 
 const App = () => {
 
@@ -17,6 +17,8 @@ const App = () => {
   const [showPost, setShowPost] = useState(false)
   const [showSearch, setShowSearch] = useState(false)
   const [query, setQuery] = useState('')
+  const [rating, setRating] = useState(null)
+  const [ratingHover, setRatingHover] = useState()
 
   // Handlers
   const getPost = () => {
@@ -51,7 +53,7 @@ const App = () => {
     })
   }
 
-  // Search
+  // Search Component
   const fuse = new Fuse (post, {
     keys: [
       'name',
@@ -72,6 +74,7 @@ const App = () => {
     setQuery(value);
   }
 
+  //Effect Hook
   useEffect(() => {
     axios.get(`${apiUrl}/api/posts`).then((response) => {
       getPost(response.data)
@@ -83,7 +86,6 @@ const App = () => {
     <>
       <div className="header">
         <h1>App</h1>
-        <button onClick={toggleAdd}>Create New Post</button>
         <Add handleCreate={handleCreate} />
         <br/><br/>
         {/* Search and Filter component */}
@@ -100,6 +102,31 @@ const App = () => {
               <div className="zoom-cont">
                 <img src={`${post.img}`} />
               </div>
+
+              {/* Star Rating Component */}
+              <div className="rating">
+                {[ ...Array(5)].map((stars, i) => {
+                  const starRating = i + 1
+                  return (
+                    <label>
+                      <input
+                        type="radio"
+                        name="rating"
+                        value={starRating}
+                        onClick={() => setRating(starRating)}
+                        
+                      />
+                      <FaStar 
+                        className="star"
+                        color={starRating <= (ratingHover || rating) ? "#f4e845" : "#c9c9c9"}
+                        onMouseEnter={() => setRatingHover(starRating)}
+                        onMouseLeave={() => setRatingHover(null)}
+                      />
+                    </label>
+                  )
+                })}
+              </div>
+
               <p>Name: {post.name}</p>
               <p>Description: {post.description}</p>
               <p>CPU: {post.cpu}</p>
