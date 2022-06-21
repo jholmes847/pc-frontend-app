@@ -9,7 +9,9 @@ import { FaStar } from 'react-icons/fa'
 
 const App = () => {
 
+  // ------------------------------
   // Database API URL Switch Heroku/Local
+  // ------------------------------
   const apiUrl = 'https://pc-backend-app.herokuapp.com'
   // const apiUrl = 'localhost:8000'
 
@@ -19,10 +21,10 @@ const App = () => {
   const [showSearch, setShowSearch] = useState(false)
   const [query, setQuery] = useState('')
   const [showToggle, setShowToggle] = useState("")
-  const [rating, setRating] = useState(null)
-  const [ratingHover, setRatingHover] = useState()
 
+  // ------------------------------
   // Handlers
+  // ------------------------------
   const getPost = () => {
     axios
       .get(`${apiUrl}/api/posts`)
@@ -60,7 +62,9 @@ const App = () => {
      : setShowToggle("")
   }
 
+  // ------------------------------
   // Search Component
+  // ------------------------------
   const fuse = new Fuse (post, {
     keys: [
       'name',
@@ -81,7 +85,9 @@ const App = () => {
     setQuery(value);
   }
 
-  // Toggle fields - work in progress
+  // ------------------------------
+  // Toggle fields
+  // ------------------------------
   const toggleAdd = () => {
 		setShowPost(!showPost)
 	}
@@ -89,31 +95,35 @@ const App = () => {
 		setShowSearch(!showSearch)
 	}
 
+  // ------------------------------
   //Effect Hook
+  // ------------------------------
   useEffect(() => {
     axios.get(`${apiUrl}/api/posts`).then((response) => {
       getPost(response.data)
     })
-   }, [])
-
-   // Return
+  }, [])
+  
+  // ------------------------------
+  // Return
+  // ------------------------------
   return (
     <>
-    <div className="header">
-        <h1>App</h1>
-        <button onClick={toggleAdd}>Create New Post</button>
+      <div className="header">
+        <h1>Pretty PC</h1>
+        <button className="btn" onClick={toggleAdd}>Create New Post</button>
         {showPost == true ?
         <Add handleCreate={handleCreate} />
         : null}
         <br/><br/>
         {/* Search and Filter component */}
-        <button className="button-primary" onClick={()=>setShowSearch(s=>!s)}>Search Builds</button>
+        <button className="btn" onClick={()=>setShowSearch(s=>!s)}>Search Builds</button>
         {showSearch ?
         <input type = "text" value={query} onChange={postSearch} />
         : null }
+        <br/>
       </div>
-
-           <div>
+      <div>
         {postResults.map((post) => {
           return(
             showToggle != `${post.id}`
@@ -122,7 +132,7 @@ const App = () => {
               <div className="zoom-cont">
                 <img src={`${post.img}`} />
               </div>
-              <h1>{post.name}</h1>
+              <h2>{post.name}</h2>
             </div>
             :
             <div className="show" key={post.id}>
@@ -131,21 +141,17 @@ const App = () => {
               </div>
               <Edit handleUpdate={handleUpdate} handleDelete={handleDelete} post={post} getPost={getPost}/>
             </div>
-
           )
-       })}
+        })}
       </div>
       <footer className='footer'>
-            <span>℗ 2022</span>
-            <span>Designed By Jeff Holmes + Alex Byun + Erik McQuarrie</span>
-            </footer>
+        <br/><br/>
+        <span>℗ 2022 </span>
+        <span>Designed By Jeff Holmes + Alex Byun + Erik McQuarrie</span>
+        <br/><br/><br/>
+        </footer>
     </>
   )
 }
 
 export default App
-
-
-
-
-              

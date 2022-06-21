@@ -57,7 +57,7 @@ const Add = (props) => {
         <input type="submit" />
       </form>
     </>
-
   )
 }
+
 export default Add
