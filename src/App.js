@@ -126,8 +126,6 @@ const App = () => {
                 <img src={`${post.img}`} />
               </div>
               <h1>{post.name}</h1>
-
-              <br/>
             </div>
             :
             <div className="show" key={post.id}>
