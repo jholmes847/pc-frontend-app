@@ -81,6 +81,14 @@ const App = () => {
     setQuery(value);
   }
 
+  // Toggle fields - work in progress
+  const toggleAdd = () => {
+		setShowPost(!showPost)
+	}
+  const toggleSearch = () => {
+		setShowSearch(!showSearch)
+	}
+
   //Effect Hook
   useEffect(() => {
     axios.get(`${apiUrl}/api/posts`).then((response) => {
@@ -121,7 +129,7 @@ const App = () => {
               <div onClick={() => {handleShowToggle(post)}}>
                 <Show post={post} />
               </div>
-              <Edit handleUpdate={handleUpdate} handleDelete={handleDelete} post={post}/>
+              <Edit handleUpdate={handleUpdate} handleDelete={handleDelete} post={post} getPost={getPost}/>
             </div>
 
           )
@@ -140,25 +148,4 @@ export default App
 
 
 
-              <div className="rating">
-                {[ ...Array(5)].map((stars, i) => {
-                  const starRating = i + 1
-                  return (
-                    <label>
-                      <input
-                        type="radio"
-                        name="rating"
-                        value={starRating}
-                        onClick={() => setRating(starRating)}
-                        
-                      />
-                      <FaStar 
-                        className="star"
-                        color={starRating <= (ratingHover || rating) ? "#f4e845" : "#c9c9c9"}
-                        onMouseEnter={() => setRatingHover(starRating)}
-                        onMouseLeave={() => setRatingHover(null)}
-                      />
-                    </label>
-                  )
-                })}
-              </div>
+              

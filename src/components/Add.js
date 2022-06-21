@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
 const Add = (props) => {
-  const emptyPost = {name: '', description: '', cpu:'', cooler:'',  mobo: '', ram: '', psu: '', gpu: '', storage:'', case:'', img:'',}
+  const emptyPost = {name: '', description: '', cpu:'', cooler:'',  mobo: '', ram: '', psu: '', gpu: '', storage:'', case:'', img:'', rating:'',}
 
   // Hooks - /components/Add.js
   const [post, setPost] = useState(emptyPost)
@@ -13,14 +13,13 @@ const Add = (props) => {
   const handleSubmit = (event) => {
     event.preventDefault()
     props.handleCreate(post)
-    setPost({name: '', description: '', cpu:'', cooler:'',  mobo: '', ram: '', psu: '', gpu: '', storage:'', case:'', img:'',})
+    setPost({name: '', description: '', cpu:'', cooler:'',  mobo: '', ram: '', psu: '', gpu: '', storage:'', case:'', img:'', rating:'',})
   }
 
   // Return - /components/Add.js
   return (
     <>
     <h3> Add Post</h3>
-    {/* {toggleAdd ? */}
       <form onSubmit={handleSubmit}>
         <label htmlFor="name">Name: </label>
           <input type="text" name="name" value={post.name} onChange={handleChange} />
@@ -57,9 +56,6 @@ const Add = (props) => {
         <br/><br/>
         <input type="submit" />
       </form>
-    {/* : null} */}
-
-
     </>
 
   )

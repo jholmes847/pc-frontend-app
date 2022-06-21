@@ -11,6 +11,7 @@ const handleChange = (event) => {
 const handleSubmit = (event) => {
     event.preventDefault()
     props.handleUpdate(post)
+    window.location.reload(false)
 }
 
 const handleDeleteSubmit = (event) => {
