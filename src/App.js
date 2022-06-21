@@ -5,7 +5,6 @@ import Edit from './components/Edit'
 import './style/style.css'
 import Fuse from 'fuse.js'
 import Show from './components/Show'
-import { FaStar } from 'react-icons/fa'
 
 const App = () => {
 
@@ -117,9 +116,9 @@ const App = () => {
         : null}
         <br/><br/>
         {/* Search and Filter component */}
-        <button className="btn" onClick={()=>setShowSearch(s=>!s)}>Search Builds</button>
+        <button className="btn" onClick={()=>setShowSearch(s=>!s)}>Search Builds</button><br/>
         {showSearch ?
-        <input type = "text" value={query} onChange={postSearch} />
+        <input type="text" placeholder="Search parts" value={query} onChange={postSearch} />
         : null }
         <br/>
       </div>
